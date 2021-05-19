@@ -1,0 +1,26 @@
+#!/bin/env bash
+
+# This is an example/template for how a config file should look
+
+# Config file for my-document-index. Decide what program to open a file with
+# and what files that are in the index. This file could be synced between
+# devices. If you want to put the file some-ware else, remember to change the
+# config_path variable in the main script.
+
+# Define program to open a file with extension, if extension not found in this
+# table the default application will be used.
+declare -A extension_to_program=(
+  ["pdf"]="okular"
+  ["txt"]="cat"
+)
+
+# Define all the files in the index. The key (in brackets) should be a
+# descriptive, yet short, name describing the document. On the right hand side,
+# put the full path to the file. For portability use environment variables
+# in the path. After a path is updated or added, update the shell environment
+# (source .bashrc) to update the completion program with the new values.
+declare -A name_to_path=(
+["my-cool-document"]=$HOME"/Documents/my_cool_document.odf"
+["maths"]=$HOME"/Documents/maths/maths.pdf"
+["whatever"]=$HOME"/Documents/something.md"
+)

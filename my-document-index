@@ -1,0 +1,22 @@
+#!/bin/env bash
+config_path="./my-document-index-config"
+
+source $config_path
+
+if [[ $1 == "show_all" ]]; then
+  # Show all possible inputs as one string
+  echo "${!name_to_path[@]}"
+else
+  path=${name_to_path[$1]}
+  extention="${path##*.}"  # extract path extention
+  application=${extention_to_program[$extention]}
+  echo Opening $path
+  if [ "$application" ]; then
+    echo Using application $application
+    $application $path &
+  else
+    echo No application specified
+    echo Trying standard application
+    xdg-open $path
+  fi
+fi
