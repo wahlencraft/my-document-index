@@ -13,10 +13,10 @@ else
   echo Opening $path
   if [ "$application" ]; then
     echo Using application $application
-    $application $path &
+    $application "$path" &
   else
     echo No application specified
     echo Trying standard application
-    xdg-open $path
+    xdg-open "$path"
   fi
 fi
