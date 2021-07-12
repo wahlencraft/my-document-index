@@ -1,7 +1,13 @@
 #!/bin/env bash
 config_path="./my-document-index-config"
 
-source $config_path
+# Load configs
+if [ -f $config_path ]; then
+  source $config_path
+else  
+  echo Config file $config_path does not exist
+  exit 1
+fi
 
 if [[ $1 == "show_all" ]]; then
   # Show all possible inputs as one string
