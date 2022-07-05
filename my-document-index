@@ -19,7 +19,13 @@ else
   echo Opening $path
   if [ "$application" ]; then
     echo Using application $application
-    $application "$path" &
+    if command -v "$application" >/dev/null 2>&1 ; then
+      $application "$path" &
+    else
+      echo Could not find application.
+      echo Trying standard application
+      xdg-open "$path"
+    fi
   else
     echo No application specified
     echo Trying standard application
