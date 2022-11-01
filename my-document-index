@@ -1,10 +1,10 @@
 #!/bin/env bash
-config_path="./my-document-index-config"
+config_path=$HOME/Dropbox/index/my-document-index-config
 
 # Load configs
 if [ -f $config_path ]; then
   source $config_path
-else  
+else
   echo Config file $config_path does not exist
   exit 1
 fi
@@ -17,7 +17,18 @@ else
   extention="${path##*.}"  # extract path extention
   application=${extention_to_program[$extention]}
   echo Opening $path
-  if [ "$application" ]; then
+  echo test
+  if [ $# -gt 1 ] ; then
+      application=$2
+      echo "Use provided application ($application)"
+      if command -v "$application" >/dev/null 2>&1 ; then
+        $application "$path" &
+      else
+        echo Could not find application.
+        echo Trying standard application
+        xdg-open "$path"
+      fi
+  elif [ "$application" ] ; then
     echo Using application $application
     if command -v "$application" >/dev/null 2>&1 ; then
       $application "$path" &
